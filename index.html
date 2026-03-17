@@ -22,73 +22,42 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-        /* Extra Styles for About Section Impact */
-        .about-wrapper {
-            padding: 1.5rem;
-            margin-top: 1rem;
-            margin-bottom: 2rem;
+        /* กำหนด Keyframes สำหรับอนิเมชันสไลด์ลง */
+        @keyframes jumDeeSlideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* คลาสสำหรับเรียกใช้อนิเมชัน */
+        .animate-jump-in {
+            animation: jumDeeSlideDown 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
         }
         
-        #toggleAboutBtn {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 24px;
-            background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
-            border: 2px solid #3b82f6;
-            border-radius: 16px;
-            color: #2563eb;
-            font-weight: 600;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        #toggleAboutBtn:active {
-            transform: scale(0.98);
-            box-shadow: 0 2px 6px rgba(59, 130, 246, 0.1);
-        }
-
-        #aboutContent {
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            background: white;
-            border-radius: 0 0 16px 16px;
-            border: 2px solid #3b82f6;
-            border-top: none;
-            margin-top: -8px;
-        }
-
-        .about-inner {
-            padding: 24px 20px 20px 20px;
-            line-height: 1.8;
-            color: #334155;
-            font-size: 1.05rem;
-        }
-
-        .text-highlight {
+        /* สไตล์การเน้นคำแบบพรีเมียม */
+        .jd-highlight {
             color: #2563eb;
             font-weight: 700;
-            background: linear-gradient(120deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
-            padding: 0 4px;
-            border-radius: 4px;
+            background: rgba(59, 130, 246, 0.08);
+            padding: 2px 8px;
+            border-radius: 8px;
+            display: inline-block;
+            margin: 2px 0;
         }
 
-        .impact-quote {
-            display: block;
-            margin-top: 15px;
-            padding-left: 12px;
-            border-left: 4px solid #3b82f6;
-            font-style: italic;
-            color: #1e40af;
-        }
-
-        #aboutChevron {
-            transition: transform 0.4s ease;
+        /* สไตล์ Quote ให้ดูมี Impact */
+        .jd-quote {
+            padding: 18px;
+            background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
+            border-left: 6px solid #3b82f6;
+            border-radius: 0 12px 12px 0;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.05);
         }
     </style>
 </head>
@@ -111,8 +80,8 @@
             
             <section id="viewHome" class="view-layer active">
                 <div class="hero-section">
-                    <h2>สวัสดีครับ ยินดีต้อนรับสู่จำดีนะครับ</h2>
-                    <p>มาฝึกสมองให้แข็งแรงกันนะครับ</p>
+                    <h2>สวัสดีครับ ยินดีต้อนรับสู่จำดี</h2>
+                    <p>มาฝึกสมองให้แข็งแรงกันเถอะ</p>
                 </div>
 
                 <div class="categories-grid">
@@ -125,7 +94,6 @@
                             <p>จับคู่ภาพ จำตำแหน่ง และลำดับ</p>
                         </div>
                     </div>
-
                     <div class="category-card" data-category="puzzle">
                         <div class="category-icon" style="background-color: var(--blue-100); color: var(--blue-600);">
                             <i data-lucide="puzzle"></i>
@@ -135,7 +103,6 @@
                             <p>ซูโดกุ คำศัพท์ จิ๊กซอว์</p>
                         </div>
                     </div>
-
                     <div class="category-card" data-category="training">
                         <div class="category-icon" style="background-color: var(--blue-100); color: var(--blue-600);">
                             <i data-lucide="zap"></i>
@@ -154,23 +121,29 @@
                     </div>
                 </div>
 
-                <div class="about-wrapper">
-                    <button id="toggleAboutBtn">
+                <div style="padding: 20px 15px; margin-bottom: 60px;">
+                    <button 
+                        onclick="const box = document.getElementById('aboutBox'); const arrow = document.getElementById('aboutArrow'); if(box.style.display === 'none'){ box.style.display = 'block'; box.classList.add('animate-jump-in'); arrow.style.transform = 'rotate(180deg)'; this.style.borderRadius = '16px 16px 0 0'; } else { box.style.display = 'none'; box.classList.remove('animate-jump-in'); arrow.style.transform = 'rotate(0deg)'; this.style.borderRadius = '16px'; }" 
+                        style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%); border: 2px solid #3b82f6; border-radius: 16px; color: #2563eb; font-weight: 600; font-family: 'Kanit', sans-serif; font-size: 1.15rem; cursor: pointer; box-shadow: 0 6px 15px rgba(59, 130, 246, 0.1); outline: none; transition: all 0.3s ease;">
                         <span>ทำความรู้จัก Jum Dee</span>
-                        <i data-lucide="chevron-down" id="aboutChevron"></i>
+                        <i data-lucide="chevron-down" id="aboutArrow" style="transition: transform 0.3s;"></i>
                     </button>
-                    <div id="aboutContent">
-                        <div class="about-inner">
-                            <p>
-                                <span class="text-highlight">Jum Dee</span> คือเกมฝึกความจำที่ออกแบบมาเพื่อดูแลผู้สูงอายุด้วยความใส่ใจ ช่วยให้การฝึกสมองเป็นเรื่องง่ายและสนุกในทุกวัน ไม่ว่าจะเป็นการจำภาพ การคิดแก้ปัญหา หรือการฝึกสมาธิ
-                            </p>
-                            <p class="impact-quote">
-                                ทีมพัฒนา เราเชื่อว่า <span class="text-highlight">“ความจำที่ดี สร้างคุณภาพชีวิตที่ดี”</span>
-                            </p>
-                            <p style="margin-top: 15px;">
-                                ทีมพัฒนา Jum Dee จึงพัฒนาขึ้นเพื่อเป็นเพื่อนคู่ใจ ที่ช่วยให้ผู้สูงอายุมีความสุข มั่นใจ และไม่ลืมช่วงเวลาสำคัญในชีวิต
+                    
+                    <div id="aboutBox" style="display: none; background: #fff; border: 2px solid #3b82f6; border-top: none; border-radius: 0 0 16px 16px; margin-top: -5px; padding: 30px 25px; box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1);">
+                        <p style="margin-bottom: 20px; line-height: 1.8; color: #334155; font-size: 1.05rem;">
+                            <strong style="color: #2563eb; font-size: 1.25rem;">Jum Dee</strong> คือเกมฝึกความจำที่ออกแบบมาเพื่อดูแลผู้สูงอายุด้วยความใส่ใจ ช่วยให้การฝึกสมองเป็นเรื่องง่ายและสนุกในทุกวัน ไม่ว่าจะเป็นการจำภาพ การคิดแก้ปัญหา หรือการฝึกสมาธิ
+                        </p>
+                        
+                        <div class="jd-quote">
+                            <p style="margin: 0; font-weight: 700; color: #1e40af; line-height: 1.7;">
+                                ทีมพัฒนา Jum Dee เราเชื่อว่า<br>
+                                <span style="font-size: 1.3rem; color: #2563eb;">“ความจำที่ดี คือคุณภาพชีวิตที่ดี”</span>
                             </p>
                         </div>
+
+                        <p style="line-height: 1.8; color: #334155; font-size: 1.05rem;">
+                            Jum Dee จึงถูกพัฒนาขึ้นเพื่อเป็น <span class="jd-highlight">เพื่อนคู่ใจ</span> ที่ช่วยให้ผู้สูงอายุมีความสุข มั่นใจ และไม่ลืมช่วงเวลาสำคัญในชีวิต
+                        </p>
                     </div>
                 </div>
             </section>
@@ -186,9 +159,7 @@
                         <div class="stat-pill">คะแนน: <span id="gameScore">0</span></div>
                         <div class="stat-pill" id="gameTimerContainer">เวลา: <span id="gameTimer">0:00</span></div>
                     </div>
-                    <button id="instructionBtn" class="icon-btn small">
-                        <i data-lucide="info"></i>
-                    </button>
+                    <button id="instructionBtn" class="icon-btn small"><i data-lucide="info"></i></button>
                 </div>
                 <div id="gameContainer" class="game-container"></div>
             </section>
@@ -201,17 +172,13 @@
                     <button id="closeModalBtn" class="icon-btn small"><i data-lucide="x"></i></button>
                 </div>
                 <div class="modal-body" id="modalBody"></div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary w-full" id="startGameBtn">เริ่มเล่นกันเลย</button>
-                </div>
+                <div class="modal-footer"><button class="btn btn-primary w-full" id="startGameBtn">เริ่มเล่นกันเลย</button></div>
             </div>
         </div>
 
         <div id="resultModal" class="modal-backdrop hidden">
             <div class="modal-content text-center">
-                <div class="celebration-icon" style="color: var(--blue-500); font-size: 3rem; margin-bottom: 1rem;">
-                    <i data-lucide="award"></i>
-                </div>
+                <div class="celebration-icon" style="color: var(--blue-500); font-size: 3rem; margin-bottom: 1rem;"><i data-lucide="award"></i></div>
                 <h3 class="mb-2">ยินดีด้วย!</h3>
                 <p>คุณได้คะแนน</p>
                 <div class="final-score" id="finalScoreText">100</div>
@@ -231,7 +198,6 @@
                 <div class="modal-body text-center">
                     <i data-lucide="user-circle" style="width:64px; height:64px; color:var(--blue-500); margin:0 auto 10px auto; display:block;"></i>
                     <p style="font-size: 1.2rem; font-weight: 600; color: var(--text-main);">ผู้เล่นจำดี</p>
-                    <p style="margin-top: 1rem;">คะแนนสะสมทั้งหมด</p>
                     <div class="final-score" id="profileTotalScore">0</div>
                 </div>
                 <div class="modal-footer" style="margin-top: 1.5rem;">
@@ -244,10 +210,7 @@
     <div id="installBanner" class="install-banner hidden">
         <div class="banner-content">
             <img src="assets/icon-192.svg" alt="App Icon" class="banner-icon" onerror="this.style.display='none'">
-            <div class="banner-text">
-                <strong>ติดตั้งแอป จำดี</strong>
-                <p>เพื่อการใช้งานที่รวดเร็วไม่ต้องต่ออินเทอร์เน็ต</p>
-            </div>
+            <div class="banner-text"><strong>ติดตั้งแอป จำดี</strong><p>เพื่อการใช้งานที่รวดเร็ว</p></div>
         </div>
         <div class="banner-actions">
             <button id="installAppBtn" class="btn btn-sm btn-primary">ติดตั้ง</button>
@@ -256,9 +219,15 @@
     </div>
 
     <script>
+        // พยายามรัน Lucide แม้จะมี Error อื่น
+        try {
+            if (window.lucide) window.lucide.createIcons();
+        } catch(e) {}
+
+        // โครงสร้างเดิมของคุณ
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js').catch(err => console.log(err));
+                navigator.serviceWorker.register('./sw.js').catch(() => {});
             });
         }
         
@@ -266,61 +235,20 @@
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            const installBanner = document.getElementById('installBanner');
-            if(installBanner) installBanner.classList.remove('hidden');
+            document.getElementById('installBanner')?.classList.remove('hidden');
         });
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Install App Logic
-            const installBtn = document.getElementById('installAppBtn');
-            const closeBtn = document.getElementById('closeInstallBannerBtn');
-            if(installBtn) {
-                installBtn.addEventListener('click', async () => {
-                    if (deferredPrompt) {
-                        deferredPrompt.prompt();
-                        const { outcome } = await deferredPrompt.userChoice;
-                        if (outcome === 'accepted') {
-                            deferredPrompt = null;
-                            document.getElementById('installBanner').classList.add('hidden');
-                        }
-                    }
-                });
-            }
-            if(closeBtn) {
-                closeBtn.addEventListener('click', () => {
+            document.getElementById('installAppBtn')?.addEventListener('click', async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt = null;
                     document.getElementById('installBanner').classList.add('hidden');
-                });
-            }
-
-            // About Section Logic (Enhanced Animation)
-            const toggleAboutBtn = document.getElementById('toggleAboutBtn');
-            const aboutContent = document.getElementById('aboutContent');
-            const aboutChevron = document.getElementById('aboutChevron');
-
-            if(toggleAboutBtn) {
-                toggleAboutBtn.addEventListener('click', () => {
-                    const isOpen = aboutContent.style.maxHeight !== '0px' && aboutContent.style.maxHeight !== '';
-                    
-                    if(!isOpen) {
-                        aboutContent.style.maxHeight = aboutContent.scrollHeight + "px";
-                        aboutContent.style.opacity = "1";
-                        aboutChevron.style.transform = "rotate(180deg)";
-                        toggleAboutBtn.style.borderRadius = "16px 16px 0 0";
-                    } else {
-                        aboutContent.style.maxHeight = "0px";
-                        aboutContent.style.opacity = "0";
-                        aboutChevron.style.transform = "rotate(0deg)";
-                        setTimeout(() => {
-                            toggleAboutBtn.style.borderRadius = "16px";
-                        }, 500);
-                    }
-                });
-            }
-
-            // Re-run Lucide to render icons
-            if (window.lucide) {
-                window.lucide.createIcons();
-            }
+                }
+            });
+            document.getElementById('closeInstallBannerBtn')?.addEventListener('click', () => {
+                document.getElementById('installBanner').classList.add('hidden');
+            });
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
