@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Jum Dee - แอปพลิเคชันฝึกสมองสำหรับผู้สูงอายุ</title>
+    <meta name="description" content="เกมเพื่อฝึกพัฒนาการและชะลอภาวะสมองเสื่อมสำหรับผู้สูงอายุ">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ffffff">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app" class="app-container">
+        
+        <!-- Header / Navigation -->
+        <header class="app-header">
+            <button id="backBtn" class="icon-btn hidden">
+                <i data-lucide="chevron-left"></i>
+            </button>
+            <h1 id="screenTitle">Jum Dee</h1>
+            <div class="header-actions">
+                <button id="profileBtn" class="icon-btn">
+                    <i data-lucide="user"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content Area representing Router -->
+        <main id="mainContent" class="main-content">
+            
+            <!-- Home Screen View -->
+            <section id="viewHome" class="view-layer active">
+                <div class="hero-section">
+                    <h2>สวัสดีครับ ยินดีต้อนรับสู่จำดี</h2>
+                    <p>มาฝึกสมองให้แข็งแรงกันเถอะ</p>
+                </div>
+
+                <div class="categories-grid">
+                    <!-- Category: Short Term Memory -->
+                    <div class="category-card" data-category="memory">
+                        <div class="category-icon" style="background-color: var(--blue-100); color: var(--blue-600);">
+                            <i data-lucide="brain"></i>
+                        </div>
+                        <div class="category-info">
+                            <h3>ฝึกความจำ</h3>
+                            <p>จับคู่ภาพ จำตำแหน่ง และลำดับ</p>
+                        </div>
+                    </div>
+
+                    <!-- Category: Puzzle -->
+                    <div class="category-card" data-category="puzzle">
+                        <div class="category-icon" style="background-color: var(--blue-100); color: var(--blue-600);">
+                            <i data-lucide="puzzle"></i>
+                        </div>
+                        <div class="category-info">
+                            <h3>ปริศนา ตรรกะ</h3>
+                            <p>ซูโดกุ คำศัพท์ จิ๊กซอว์</p>
+                        </div>
+                    </div>
+
+                    <!-- Category: Brain Training -->
+                    <div class="category-card" data-category="training">
+                        <div class="category-icon" style="background-color: var(--blue-100); color: var(--blue-600);">
+                            <i data-lucide="zap"></i>
+                        </div>
+                        <div class="category-info">
+                            <h3>ฝึกสมองฉับไว</h3>
+                            <p>คิดเลขเร็ว ตอบสนองไว</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Scores Widget -->
+                <div class="widget-section">
+                    <div class="widget-header">
+                        <h3>คะแนนรวมล่าสุด</h3>
+                        <span class="total-score-badge" id="totalScorePill">0 แต้ม</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Game Listing Screen View (Dynamic) -->
+            <section id="viewGames" class="view-layer hidden">
+                <h2 id="categoryTitle" class="section-title">เลือกเกม</h2>
+                <div id="gamesList" class="games-list"></div>
+            </section>
+
+            <!-- Game Arena View -->
+            <section id="viewGameArena" class="view-layer hidden">
+                <div class="game-header">
+                    <div class="game-stats">
+                        <div class="stat-pill">คะแนน: <span id="gameScore">0</span></div>
+                        <div class="stat-pill" id="gameTimerContainer">เวลา: <span id="gameTimer">0:00</span></div>
+                    </div>
+                    <button id="instructionBtn" class="icon-btn small">
+                        <i data-lucide="info"></i>
+                    </button>
+                </div>
+                <!-- Dynamic Game Container -->
+                <div id="gameContainer" class="game-container"></div>
+            </section>
+
+        </main>
+
+        <!-- Modals -->
+        
+        <!-- Instruction Modal -->
+        <div id="instructionModal" class="modal-backdrop hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">วิธีเล่น</h3>
+                    <button id="closeModalBtn" class="icon-btn small">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Instruction text goes here -->
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary w-full" id="startGameBtn">เริ่มเล่นกันเลย</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Modal -->
+        <div id="resultModal" class="modal-backdrop hidden">
+            <div class="modal-content text-center">
+                <div class="celebration-icon" style="color: var(--blue-500); font-size: 3rem; margin-bottom: 1rem;">
+                    <i data-lucide="award"></i>
+                </div>
+                <h3 class="mb-2">ยินดีด้วย!</h3>
+                <p>คุณได้คะแนน</p>
+                <div class="final-score" id="finalScoreText">100</div>
+                <div class="modal-footer-actions mt-4">
+                    <button class="btn btn-outline flex-1" id="playAgainBtn">เล่นอีกครั้ง</button>
+                    <button class="btn btn-primary flex-1" id="backToMenuBtn">กลับเมนู</button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- PWA Install Prompt Banner (Optional) -->
+    <div id="installBanner" class="install-banner hidden">
+        <div class="banner-content">
+            <img src="assets/icon-192.png" alt="App Icon" class="banner-icon" onerror="this.style.display='none'">
+            <div class="banner-text">
+                <strong>ติดตั้งแอป จำดี</strong>
+                <p>เพื่อการใช้งานที่รวดเร็วไม่ต้องต่ออินเทอร์เน็ต</p>
+            </div>
+        </div>
+        <div class="banner-actions">
+            <button id="installAppBtn" class="btn btn-sm btn-primary">ติดตั้ง</button>
+            <button id="closeInstallBannerBtn" class="icon-btn small"><i data-lucide="x"></i></button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Check that service workers are supported
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                .then(registration => {
+                    console.log('SW registered: ', registration);
+                })
+                .catch(registrationError => {
+                    console.log('SW registration failed: ', registrationError);
+                });
+            });
+        }
+        
+        // PWA Install Prompt Logic
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            // Optionally, we show the banner here nicely for the elderly
+            const installBanner = document.getElementById('installBanner');
+            if(installBanner) installBanner.classList.remove('hidden');
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const installBtn = document.getElementById('installAppBtn');
+            const closeBtn = document.getElementById('closeInstallBannerBtn');
+            
+            if(installBtn) {
+                installBtn.addEventListener('click', async () => {
+                    if (deferredPrompt) {
+                        deferredPrompt.prompt();
+                        const { outcome } = await deferredPrompt.userChoice;
+                        if (outcome === 'accepted') {
+                            deferredPrompt = null;
+                            document.getElementById('installBanner').classList.add('hidden');
+                        }
+                    }
+                });
+            }
+            if(closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    document.getElementById('installBanner').classList.add('hidden');
+                });
+            }
+        });
+    </script>
+    <script src="js/app.js"></script>
+    
+    <!-- Game Scripts -->
+    <!-- These will be loaded dynamically or bundled, but for simplicity here we include them. 
+         As they are added to the plan, we will create these files. -->
+</body>
+</html>
