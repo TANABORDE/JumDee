@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <div class="top-logos">
+        <img src="assets/1.svg" alt="Organizer Logo" class="logo">
+        <img src="assets/2.svg" alt="Creator Logo" class="logo">
+    </div>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Jum Dee - เว็บแอปพลิเคชันเกมฝึกสมองสำหรับผู้สูงอายุ</title>
+    <meta name="description" content="เกมเพื่อฝึกพัฒนาการและชะลอภาวะสมองเสื่อมสำหรับผู้สูงอายุ">
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.jpg">
+    <link rel="icon" type="image/jpeg" href="assets/icon-192.jpg">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Jum Dee (จำดี)">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        @keyframes jumDeeSlideDown {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-jump-in {
+            animation: jumDeeSlideDown 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+        }
+        .jd-highlight {
+            color: #2563eb;
+            font-weight: 700;
+            background: rgba(59, 130, 246, 0.08);
+            padding: 2px 8px;
+            border-radius: 8px;
+            display: inline-block;
+            margin: 2px 0;
+        }
+        .jd-quote {
+            padding: 18px;
+            background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
+            border-left: 6px solid #3b82f6;
+            border-radius: 0 12px 12px 0;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.05);
+        }
+        /* Install Guide Styles */
+        .install-guide-section {
+            margin-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 18px;
+        }
+        .install-guide-section h4 {
+            font-size: 1.05rem;
+            color: #1e40af;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .install-guide-section h4 .guide-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        .guide-android .guide-icon {
+            background: #d1fae5;
+            color: #059669;
+        }
+        .guide-ios .guide-icon {
+            background: #e0e7ff;
+            color: #4f46e5;
+        }
+        .install-steps {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .install-steps li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 8px 0;
+            font-size: 0.9rem;
+            color: #374151;
+            line-height: 1.5;
+        }
+        .step-num {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .install-now-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Kanit', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        .install-now-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+        }
+        .install-now-btn:active {
+            transform: translateY(0);
+        }
+        .profile-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            object-fit: cover;
+            margin: 0 auto 10px auto;
+            display: block;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="app-container">
+        
+        <header class="app-header">
+            <button id="backBtn" class="icon-btn hidden">
+                <i data-lucide="chevron-left"></i>
+            </button>
+            <h1 id="screenTitle">Jum Dee</h1>
+            <div class="header-actions">
+                <button id="profileBtn" class="icon-btn">
+                    <i data-lucide="user"></i>
+                </button>
+            </div>
+        </header>
+
+        <main id="mainContent" class="main-content">
+            
+            <!-- HOME VIEW -->
+            <section id="viewHome" class="view-layer active">
+                <div class="hero-section">
+                    <h2>สวัสดีครับ ยินดีต้อนรับสู่จำดี</h2>
+                    <p>มาฝึกสมองให้แข็งแรงกันเถอะ</p>
+                </div>
+
+                <!-- Daily Check-in Widget -->
+                <div id="checkinWidget"></div>
+
+                <div class="categories-grid">
+                    <div class="category-card" data-category="memory">
+                        <div class="category-icon" style="background-color: var(--blue-100); color: var(--blue-600);">
+                            <i data-lucide="brain"></i>
+                        </div>
+                        <div class="category-info">
+                            <h3>ฝึกความจำ</h3>
+                            <p>จับคู่ภาพ จำตำแหน่ง และลำดับ</p>
+                        </div>
+                    </div>
+                    <div class="category-card" data-category="puzzle">
+                        <div class="category-icon" style="background-color: var(--blue-100); color: var(--blue-600);">
+                            <i data-lucide="puzzle"></i>
+                        </div>
+                        <div class="category-info">
+                            <h3>ปริศนา ตรรกะ</h3>
+                            <p>ซูโดกุ คำศัพท์ จิ๊กซอว์</p>
+                        </div>
+                    </div>
+                    <div class="category-card" data-category="training">
+                        <div class="category-icon" style="background-color: var(--blue-100); color: var(--blue-600);">
+                            <i data-lucide="zap"></i>
+                        </div>
+                        <div class="category-info">
+                            <h3>ฝึกสมองฉับไว</h3>
+                            <p>คิดเลขเร็ว ตอบสนองไว</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget-section">
+                    <div class="widget-header">
+                        <h3>คะแนนรวมล่าสุด</h3>
+                        <span class="total-score-badge" id="totalScorePill">0 แต้ม</span>
+                    </div>
+                </div>
+
+                <div style="padding: 20px 15px; margin-bottom: 80px;">
+                    <button 
+                        onclick="const box = document.getElementById('aboutBox'); const arrow = document.getElementById('aboutArrow'); if(box.style.display === 'none'){ box.style.display = 'block'; box.classList.add('animate-jump-in'); arrow.style.transform = 'rotate(180deg)'; this.style.borderRadius = '16px 16px 0 0'; } else { box.style.display = 'none'; box.classList.remove('animate-jump-in'); arrow.style.transform = 'rotate(0deg)'; this.style.borderRadius = '16px'; }" 
+                        style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%); border: 2px solid #3b82f6; border-radius: 16px; color: #2563eb; font-weight: 600; font-family: 'Kanit', sans-serif; font-size: 1.15rem; cursor: pointer; box-shadow: 0 6px 15px rgba(59, 130, 246, 0.1); outline: none; transition: all 0.3s ease;">
+                        <span>ทำความรู้จัก Jum Dee</span>
+                        <i data-lucide="chevron-down" id="aboutArrow" style="transition: transform 0.3s;"></i>
+                    </button>
+                    
+                    <div id="aboutBox" style="display: none; background: #fff; border: 2px solid #3b82f6; border-top: none; border-radius: 0 0 16px 16px; margin-top: -5px; padding: 30px 25px; box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1);">
+                        <p style="margin-bottom: 20px; line-height: 1.8; color: #334155; font-size: 1.05rem;">
+                            <strong style="color: #2563eb; font-size: 1.25rem;">Jum Dee</strong> คือเกมฝึกความจำที่ออกแบบมาเพื่อดูแลผู้สูงอายุด้วยความใส่ใจ ช่วยให้การฝึกสมองเป็นเรื่องง่ายและสนุกในทุกวัน ไม่ว่าจะเป็นการจำภาพ การคิดแก้ปัญหา การออกกำลังกาย หรือการฝึกสมาธิ
+                        </p>
+                        
+                        <div class="jd-quote">
+                            <p style="margin: 0; font-weight: 700; color: #1e40af; line-height: 1.7;">
+                                ทีมพัฒนา Jum Dee เราเชื่อว่า<br>
+                                <span style="font-size: 1.3rem; color: #2563eb;">"ความจำที่ดี คือคุณภาพชีวิตที่ดี"</span>
+                            </p>
+                        </div>
+
+                        <p style="line-height: 1.8; color: #334155; font-size: 1.05rem;">
+                            Jum Dee จึงถูกพัฒนาขึ้นเพื่อเป็น <span class="jd-highlight">เพื่อนคู่ใจ</span> ที่ช่วยให้ผู้สูงอายุมีความสุข มั่นใจ และไม่ลืมช่วงเวลาสำคัญของชีวิต
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GAMES LIST VIEW -->
+            <section id="viewGames" class="view-layer hidden">
+                <h2 id="categoryTitle" class="section-title">เลือกเกม</h2>
+                <div id="gamesList" class="games-list"></div>
+            </section>
+
+            <!-- GAME ARENA VIEW -->
+            <section id="viewGameArena" class="view-layer hidden">
+                <div class="game-header">
+                    <div class="game-stats">
+                        <div class="stat-pill">คะแนน: <span id="gameScore">0</span></div>
+                        <div class="stat-pill" id="gameTimerContainer">เวลา: <span id="gameTimer">0:00</span></div>
+                    </div>
+                    <button id="instructionBtn" class="icon-btn small"><i data-lucide="info"></i></button>
+                </div>
+                <div id="gameContainer" class="game-container"></div>
+            </section>
+
+            <!-- EXERCISE VIEW -->
+            <section id="viewExercise" class="view-layer hidden">
+                <div id="exerciseContainer"></div>
+            </section>
+
+            <!-- DASHBOARD VIEW -->
+            <section id="viewDashboard" class="view-layer hidden">
+                <div id="dashboardContainer"></div>
+            </section>
+        </main>
+
+        <!-- Modals (same as before) -->
+        <div id="instructionModal" class="modal-backdrop hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">วิธีเล่น</h3>
+                    <button id="closeModalBtn" class="icon-btn small"><i data-lucide="x"></i></button>
+                </div>
+                <div class="modal-body" id="modalBody"></div>
+                <div class="modal-footer"><button class="btn btn-primary w-full" id="startGameBtn">เริ่มเล่นกันเลย</button></div>
+            </div>
+        </div>
+
+        <div id="resultModal" class="modal-backdrop hidden">
+            <div class="modal-content text-center">
+                <div class="celebration-icon" style="color: var(--blue-500); font-size: 3rem; margin-bottom: 1rem;"><i data-lucide="award"></i></div>
+                <h3 class="mb-2">ยินดีด้วย!</h3>
+                <p>คุณได้คะแนน</p>
+                <div class="final-score" id="finalScoreText">100</div>
+                <div class="modal-footer-actions mt-4">
+                    <button class="btn btn-outline flex-1" id="playAgainBtn">เล่นอีกครั้ง</button>
+                    <button class="btn btn-primary flex-1" id="backToMenuBtn">กลับเมนู</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="profileModal" class="modal-backdrop hidden">
+            <div class="modal-content" style="max-height: 85vh; overflow-y: auto;">
+                <div class="modal-header">
+                    <h3 id="profileTitle">ข้อมูลผู้เล่น</h3>
+                    <button id="closeProfileBtn" class="icon-btn small"><i data-lucide="x"></i></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="jumdeelogo.jpg" alt="Jum Dee Logo" class="profile-logo">
+                    <p style="font-size: 1.2rem; font-weight: 600; color: var(--text-main);">ผู้เล่นจำดี</p>
+                    <div class="final-score" id="profileTotalScore">0</div>
+                </div>
+
+                <!-- Android PWA Install Guide -->
+                <div class="install-guide-section guide-android" id="androidInstallGuide">
+                    <h4><span class="guide-icon">📱</span> วิธีการติดตั้งแอปบน Android (PWA)</h4>
+                    <ol class="install-steps">
+                        <li><span class="step-num">1</span><span>เปิดเว็บนี้ด้วย <strong>Chrome</strong> บนมือถือ Android</span></li>
+                        <li><span class="step-num">2</span><span>แตะปุ่ม <strong>⋮ (เมนู 3 จุด)</strong> มุมบนขวา</span></li>
+                        <li><span class="step-num">3</span><span>เลือก <strong>"ติดตั้งแอป"</strong> หรือ <strong>"เพิ่มไปยังหน้าจอหลัก"</strong></span></li>
+                        <li><span class="step-num">4</span><span>แตะ <strong>"ติดตั้ง"</strong> เพื่อเพิ่มแอปลงหน้าจอ</span></li>
+                    </ol>
+                    <button class="install-now-btn" id="pwaInstallBtn" style="display:none;">
+                        <i data-lucide="download" style="width:18px;height:18px;"></i>
+                        ติดตั้งแอปทันที
+                    </button>
+                </div>
+
+                <!-- iOS Add to Home Screen Guide -->
+                <div class="install-guide-section guide-ios" id="iosInstallGuide">
+                    <h4><span class="guide-icon">🍎</span> เพิ่มไปยังหน้าจอ iPhone / iPad</h4>
+                    <ol class="install-steps">
+                        <li><span class="step-num">1</span><span>เปิดเว็บนี้ด้วย <strong>Safari</strong> บน iPhone/iPad</span></li>
+                        <li><span class="step-num">2</span><span>แตะปุ่ม <strong>แชร์ (มีลูกศรขึ้น)</strong> ด้านล่าง</span></li>
+                        <li><span class="step-num">3</span><span>เลื่อนลงแล้วเลือก <strong>"เพิ่มไปยังหน้าจอโฮม"</strong></span></li>
+                        <li><span class="step-num">4</span><span>แตะ <strong>"เพิ่ม"</strong> มุมบนขวา </span></li>
+                    </ol>
+                </div>
+
+                <div class="modal-footer" style="margin-top: 1.5rem;">
+                    <button class="btn btn-outline w-full" id="resetScoreBtn" style="color: var(--error); border-color: var(--error);">รีเซ็ตคะแนนทั้งหมด</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation Bar -->
+        <nav class="bottom-nav" id="bottomNav">
+            <button class="bottom-nav-item active" data-nav="home">
+                <i data-lucide="home"></i>
+                <span>หน้าหลัก</span>
+            </button>
+            <button class="bottom-nav-item" data-nav="exercise">
+                <i data-lucide="heart-pulse"></i>
+                <span>ออกกำลังกาย</span>
+            </button>
+            <button class="bottom-nav-item" data-nav="dashboard">
+                <i data-lucide="bar-chart-3"></i>
+                <span>Dashboard</span>
+            </button>
+        </nav>
+    </div>
+
+    <div id="installBanner" class="install-banner hidden">
+        <div class="banner-content">
+            <img src="assets/icon-192.jpg" alt="App Icon" class="banner-icon" onerror="this.style.display='none'">
+            <div class="banner-text"><strong>ติดตั้งแอป จำดี</strong><p>เพื่อการใช้งานที่รวดเร็ว</p></div>
+        </div>
+        <div class="banner-actions">
+            <button id="installAppBtn" class="btn btn-sm btn-primary">ติดตั้ง</button>
+            <button id="closeInstallBannerBtn" class="icon-btn small"><i data-lucide="x"></i></button>
+        </div>
+    </div>
+
+    <script>
+        try { if (window.lucide) window.lucide.createIcons(); } catch(e) {}
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js').catch(() => {});
+            });
+        }
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            window.deferredPrompt = e;
+            document.getElementById('installBanner')?.classList.remove('hidden');
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('installAppBtn')?.addEventListener('click', async () => {
+                if (window.deferredPrompt) {
+                    window.deferredPrompt.prompt();
+                    window.deferredPrompt = null;
+                    document.getElementById('installBanner').classList.add('hidden');
+                }
+            });
+            document.getElementById('closeInstallBannerBtn')?.addEventListener('click', () => {
+                document.getElementById('installBanner').classList.add('hidden');
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script src="js/user-data.js"></script>
+    <script src="js/checkin.js"></script>
+    <script src="js/analytics.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/exercise.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
