@@ -19,7 +19,7 @@
         isPlaying: false,
         // We use CSS gradients or emojis instead of real images for simplicity without loading external assets
         // For a real app, you'd use a canvas or background-image slices
-        theme: ['🍉','🍌','🍎','🍊','🍇','🍓','🍒','🍐']
+        theme: [1, 2, 3, 4, 5, 6, 7, 8]
     };
 
     const ui = {
@@ -108,7 +108,8 @@
             .jigsaw-tile {
                 background-color: var(--blue-500);
                 color: white;
-                font-size: 3rem;
+                font-size: 2.5rem;
+                font-weight: bold;
                 display: flex;
                 align-items: center;
                 justify-content: center;
