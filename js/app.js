@@ -291,7 +291,12 @@ function setupModals() {
 
   DOM.buttons.instruction.addEventListener("click", () => {
     if (AppState.currentGame) {
-      showInstruction(AppState.currentGame);
+      // Check if the current game module has a custom showExampleModal method
+      if (AppState.currentGame === "jigsaw" && window.JigsawGame && window.JigsawGame.showExampleModal) {
+        window.JigsawGame.showExampleModal();
+      } else {
+        showInstruction(AppState.currentGame);
+      }
     }
   });
 

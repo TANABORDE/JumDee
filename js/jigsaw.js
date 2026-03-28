@@ -135,6 +135,108 @@
                 color: var(--text-muted);
                 font-size: 1.1rem;
             }
+            .header-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+            .info-button {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                border: 2px solid var(--text-muted);
+                background-color: transparent;
+                color: var(--text-muted);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1rem;
+                cursor: pointer;
+                transition: all 0.2s;
+                font-weight: bold;
+                padding: 0;
+            }
+            .info-button:hover {
+                background-color: var(--blue-100);
+                color: var(--blue-500);
+                border-color: var(--blue-500);
+            }
+            .modal-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+            }
+            .modal-box {
+                background-color: white;
+                border-radius: 12px;
+                padding: 2rem;
+                max-width: 400px;
+                width: 90%;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            }
+            .modal-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 1rem;
+            }
+            .modal-close {
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                color: var(--text-muted);
+                cursor: pointer;
+                padding: 0;
+                width: 32px;
+                height: 32px;
+            }
+            .modal-close:hover {
+                color: var(--text-primary);
+            }
+            .modal-title {
+                font-size: 1.3rem;
+                font-weight: bold;
+                color: var(--text-primary);
+            }
+            .modal-label {
+                color: var(--text-muted);
+                font-size: 0.9rem;
+                margin: 1rem 0 0.5rem 0;
+                font-weight: 500;
+            }
+            .example-board {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 5px;
+                width: 100%;
+                aspect-ratio: 1/1;
+                background-color: var(--blue-200);
+                padding: 10px;
+                border-radius: var(--border-radius-sm);
+            }
+            .example-tile {
+                background-color: var(--success);
+                color: white;
+                font-size: 1.5rem;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 6px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .example-tile.empty {
+                background-color: var(--blue-300);
+            }
         `;
         container.appendChild(style);
 
@@ -145,12 +247,13 @@
         movesDisp.className = 'moves-counter';
         movesDisp.id = 'jigMoves';
         movesDisp.textContent = 'จำนวนการขยับ: 0';
+        
+        arena.appendChild(movesDisp);
 
         const board = document.createElement('div');
         board.className = 'jigsaw-board';
         board.id = 'jigBoard';
         
-        arena.appendChild(movesDisp);
         arena.appendChild(board);
         container.appendChild(arena);
 
@@ -183,6 +286,81 @@
         });
 
         document.getElementById('jigMoves').textContent = `จำนวนการขยับ: ${state.moves}`;
+    }
+
+    function showExampleModal() {
+        const overlay = document.createElement('div');
+        overlay.className = 'modal-overlay';
+        
+        const modal = document.createElement('div');
+        modal.className = 'modal-box';
+        
+        const header = document.createElement('div');
+        header.className = 'modal-header';
+        const title = document.createElement('div');
+        title.className = 'modal-title';
+        title.textContent = 'วิธีเล่น: จิ๊กซอว์';
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'modal-close';
+        closeBtn.textContent = '✕';
+        closeBtn.onclick = () => overlay.remove();
+        header.appendChild(title);
+        header.appendChild(closeBtn);
+        
+        const description = document.createElement('p');
+        description.style.cssText = `
+            margin: 0 0 1.5rem 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        `;
+        description.textContent = 'แตะอื่นส่วนที่อยู่ติดกับช่องว่างเพื่อเลื่อนสลับ เรียงภาพให้สมบูรณ์';
+        
+        const label = document.createElement('div');
+        label.className = 'modal-label';
+        label.textContent = 'ตัวอย่างที่ถูกต้อง:';
+        
+        const exampleBoard = document.createElement('div');
+        exampleBoard.className = 'example-board';
+        for (let i = 1; i <= 8; i++) {
+            const tile = document.createElement('div');
+            tile.className = 'example-tile';
+            tile.textContent = i;
+            exampleBoard.appendChild(tile);
+        }
+        const emptyTile = document.createElement('div');
+        emptyTile.className = 'example-tile empty';
+        exampleBoard.appendChild(emptyTile);
+        
+        const button = document.createElement('button');
+        button.style.cssText = `
+            width: 100%;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--blue-500);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: background-color 0.2s;
+        `;
+        button.textContent = 'เริ่มเล่นกันเลย';
+        button.onmouseover = () => button.style.backgroundColor = 'var(--blue-600)';
+        button.onmouseout = () => button.style.backgroundColor = 'var(--blue-500)';
+        button.onclick = () => overlay.remove();
+        
+        modal.appendChild(header);
+        modal.appendChild(description);
+        modal.appendChild(label);
+        modal.appendChild(exampleBoard);
+        modal.appendChild(button);
+        overlay.appendChild(modal);
+        overlay.onclick = (e) => {
+            if (e.target === overlay) overlay.remove();
+        };
+        document.body.appendChild(overlay);
     }
 
     function handleSlide(idx) {
@@ -248,7 +426,8 @@
 
     return {
         init,
-        cleanup
+        cleanup,
+        showExampleModal
     };
 
 })();
